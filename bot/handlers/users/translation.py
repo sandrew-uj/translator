@@ -1,3 +1,6 @@
+import json
+
+import requests
 from aiogram import types
 from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters import Command
@@ -28,9 +31,10 @@ async def return_translation(call: CallbackQuery, state: FSMContext):
     async with state.proxy() as data:
         text = data.get("text")
         lang = language_callback.parse(call.data).get("language")
-        translation = get_translation(text, lang)
+        res = requests.post(url=f"http://localhost:8000/translate_text", json={"text": text, "to_language": lang})
+
+        translation = res.json()
     await state.finish()
     await call.message.edit_reply_markup()
 
     await call.message.answer(f"Ваш перевод:\n {translation}")
-
