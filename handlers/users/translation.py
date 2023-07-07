@@ -1,5 +1,3 @@
-
-
 from aiogram import types
 from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters import Command
@@ -36,14 +34,3 @@ async def return_translation(call: CallbackQuery, state: FSMContext):
 
     await call.message.answer(f"Ваш перевод:\n {translation}")
 
-
-# for lang in ["en", "ru", "fr", "de", "sp"]:
-#     @dp.callback_query_handler(language_callback.filter(language=lang), state=NewText.GetTranslation)
-#     async def return_translation(call: CallbackQuery, state: FSMContext):
-#         async with state.proxy() as data:
-#             text = data.get("text")
-#             translation = get_translation(text, lang)
-#         await state.finish()
-#         await call.message.edit_reply_markup()
-#
-#         await call.message.answer(f"Ваш перевод:\n {translation}")
